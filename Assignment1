@@ -1,0 +1,326 @@
+Scenario : Pay tuition
+Description : A student wants to pay his tuition through myNEU account.
+
+Object : Student
+       State : name, myNEUAccountName, password
+       Behavior: loginMyNEUAccount(), payMoneyToAccount(), receiveConfirmationEmailFromNEUAccount()
+
+Object : MyNEUAccount
+       State : emailAddress, balance
+       Behavior : displayBalance(), acceptMoneyFromStudent(), sendConfirmationEmailToStudent()
+
+Object : money
+       State : amount
+
+
+class Student{
+      String name;
+      String myNEUAccountName;
+      String password;
+      void loginMyNEUAccount();
+      void payMoneyToAccount(MyNEUAccount myAccount, Money payment);
+      void receiveConfirmationEmailFromNEUAccount();
+}
+
+class MyNEUAccount{
+      String emailAddress;
+      Money balance;
+      Money displayBalance();
+      void acceptMoneyFromStudent(Money money);
+      void sendConfirmationEmailToStudent();
+}
+
+class Money{
+      float amount;
+}
+
+class payingTuitionFeeOnMyNEUAccount{
+      public static void main(String args[]){
+      MyNEUAccount lynneAccount = new MyNEUAccount();
+      Student lynne = new Student();
+      Money payment = new Money();
+      Money payment = 20000.00;
+      lynneAccount.emailAddress = "lynneshan@gmail.com";
+      lynneAccount.balance = payment;
+      lynne.name = "Lynne";
+      lynne.myNEUAccountName = "LynneShan7";
+      lynne.password = “1111111”;
+
+      lynne.loginMyNEUAccount();
+      payment=lynneAccount.displayBalance();
+      lynne.payMoneyToAccount(lynneAccount,payment);
+      lynneAccount.acceptMoneyFromStudent(payment);
+      lynneAccount.sendConfirmationEmailToStudent();
+      lynne.receiveConfirmationEmailFromNEUAccount();
+      }
+}
+
+Scenario : Order for delivery
+Description : A consumer is going to order a delivery through phone calls.
+
+Object : Customer
+       State : name, address, myPhoneNum, restaurantPhoneNum
+       Behavior : callRestaurant(), pickItemOrder(), placeOrder()
+
+
+Object : Restaurant
+       State : menu
+       Behavior : acceptCallFromCustomer(), describeMenu(); confirmOrder()
+
+Object : MenuItem
+       State : description of recipe
+
+class Restaurant{
+      MenuItem[] menu;
+      void acceptCallFromCustomer(Customer customer){}
+      MenuItem[] describeMenu(){}
+      void confirmOrder(MenuItem order){}
+      }
+
+class Customer{
+      String name;
+      String address;
+      String myPhoneNum;
+      String restaurantPhoneNum;
+      void callRestaurant(){}
+      MenuItem pickItemToOrder(MenuItem[] menu){}
+      void placeOrder(){}
+      }
+
+class MenuItem{
+      String recipe;
+      }
+
+class deliveryOnPhone{
+      public static void main(String args[]){
+       Restaurant subway = new Restaurant();
+       Costumer lynne = new Customer();
+       enuItem sandwich = new MenuItem();
+       sandwich.recipe = "Beef sandwich";
+       MenuItem burger = new MenuItem();
+       burger.recipe = "Cheese burger";
+       MenuItem[] menu= {sandwich, burger};
+
+             lynne.name = "Lynne";
+             lynne.address = "401 Terry Ave";
+             lynne.phoneNum = "111111";
+             lynne.restaurantNum = "222222";
+             subway.menu = menu;
+
+             lynne.callRestaurant();
+             subway.acceptCallFromCustomer(lynne);
+             menu = subway.describeMenuItem();
+             MenuItem order = lynne.pickItemOrder(menu);
+             lynne.placeOrder();
+             subway.confirmOrder(order);
+      }
+}
+
+
+Scenario : Booking an Airbnb
+Description : A tourist wants to book a house on Airbnb app.
+
+Object : Tourist
+       State : name, email, checkInDate, checkOutDate
+       Behavior : visitHouseRentalApp(), findHouses(), makeReservation(), payDepositToApp(), receiveConfirmationLetterFromApp()
+
+Object : House
+       State : address, price
+       Behavior : getAddress(), getPrice()
+
+Object : HouseRentalApp
+       State : collection of Houses
+       Behavior : displayValidHouses(), acceptDepositFromTourist(), sendConfirmationLetterToTourist()
+
+Object : Deposit
+       State : amount
+
+class Tourist{
+      String name;
+      String email;
+      String checkInDate;
+      String checkOutDate;
+      void visitHouseRentalApp(HouseRentalApp airbnb);
+      House findHouses(House[] houses);
+      void makeReservation();
+      void payDepositToApp(Deposit payment);
+      void receiveConfirmationLetterFromApp();
+      }
+
+class House{
+      String address;
+      Float price;
+      String getAddress();
+      Float getPrice();
+      }
+
+class HouseRentalApp{
+      House[] houses;
+      House[] displayAvailableHouses();
+      void acceptDepositFromTourist(Tourist tourist, Deposit payment);
+      void sendConfirmationLetterToTourist();
+      }
+class Deposit{
+     Float amount;
+      }
+
+class BookingHouseOnAirbnb{
+      Tourist lynne = new Tourist();
+      HouseRentalApp airbnb = new HouseRentalApp();
+      House java = new House();
+      house database = new House();
+      House[] houses = {java, database};
+      Deposit payment = new Deposit();
+
+      lynne.name = "Lynne";
+      lynne.email = "lynneshan@gmail.com";
+      lynne.checkInDate = “01 Nov 2016”;
+      lynne.checkOutDate = “02 Nov 2016”;
+      java.address = "422 Yale Ave";
+      java.price = "100.00";
+      database.address = "225 Terry Ave";
+      database.price = "99.00";
+      payment = "150.00";
+
+
+      lynne.visitHouseRentalApp(airbnb);
+      houses = airbnb.displayAvailableHouses();
+      java = lynne.findTheHouse(houses);
+      lynne.makeReservation();
+      lynne.payDepositToApp(payment);
+      airbnb.acceptDepositFromTourist(lynne,payment);
+      airbnb.sendConfirmationLetterToTourist();
+      lynne.receiveConfirmationLetterFromApp();
+      }
+}
+
+Scenario : Travelling to LA
+Description : A tourist is trying to find the cheapest flight to LA.
+
+Object : Tourist
+       State : name, email, date, from, to
+       Behavior : visitFlightWebsite(), searchCheapestFlight(), placeOrderForFlight(), payMoneyToWebsite(), receiveConfirmationLetterFromFlightWebsite()
+
+Object : FlightWebsite
+       State : collection of Flights
+       Behavior :   displayAvailableFlights(); sortFlightsAsPriceFromLowToHigh(); acceptMoneyFromTourist(); sendConfirmationLetterToTourist()
+
+Object : Flight
+       State : flightNumber, price
+       Behavior : getFlightNumber(), getPrice()
+
+Object : Money
+       State: amount
+
+class Tourist{
+      String name;
+      String email;
+      String date;
+      String from;
+      String to;
+      void visitWebsite(Website website);
+      Flight findTheCheapestFlight(Flight[] flights);
+      void placeOrderForFlight(Flight flight);
+      void payMoneyToWebsite(Flight flight, Money money);
+      void receiveConfirmationLetterFromWebsite();
+      }
+
+class Flight{
+      String flightNumber;
+      Float price;
+      String getFlightNumber();
+      Float getPrice();
+}
+
+class FlightWebsite{
+      Flight[] flights;
+      Flight[] sortAvailableFlights();
+      void acceptMoneyFromTourist(Tourist tourist, Money money);
+      void sendConfirmationLetterToTourist();
+}
+
+class Money{
+      Float amount;
+}
+
+class BookingCheapestFlightOnline{
+      Tourist lynne = new Tourist();
+      FlightWebsite priceline = new FlightWebsite();
+      Flight flight1 = new Flight();
+      Flight flight2 = new Flight();
+      Flight flight3 = new Flight();
+      Flight flight4 = new Flight();
+      Flight[] flights = {flight1,flight2,flight3,flight4};
+      Money payment = new Money();
+
+      lynne.name = "Lynne";
+      lynne.email = "lynneshan@gmail.com";
+      flight1.flightNumber = "001";
+      flight2.flightNumber = "002";
+      flight3.flightNumber = "003";
+      flight4.flightNumber = "004";
+      flight1.price = "100.00";
+      flight2.price = "200.00";
+      flight3.price = "300.00";
+      flight4.price = "400.00";
+      Money payment = "100.00";
+
+      lynne.visitFlightWebsite(priceline);
+      Flight[] flights = priceline.sortAvailableFlights();
+      flight1 = lynne.findTheCheapestFlight(flights);
+      lynne.placeOrderForFlight(flight1);
+      lynne.payMoneyToFlightWebsite(flight1, payment);
+      priceline.acceptMoneyFromTourist(lynne, payment);
+      priceline.sendConfirmationLetterToTourist();
+      lynne.receiveConfirmationLetterFromFlightWebsite();
+      }
+
+Scenario : Drive home
+Description : A student is driving home from school.
+
+Object : Student
+       State : homeAddress, schoolAddress
+       Behavior : navigateOnMapApp(), followMapRouteToDrive()
+
+Object : Car
+       State : speed, direction
+       Behavior : operate()
+
+Object : MapApp
+       State : routeInstructions, from, to
+       Behavior : displayMapRoute(), calculateRoute()
+
+class Student{
+              String homeAddress;
+              String schoolAddress;
+              void navigateOnMapApp(MapApp mapApp);
+              void followMapRouteToDrive(Car car, String[] instructions);
+}
+
+class Car{
+          int speed;
+          int direction;
+          void operate();
+}
+
+class MapApp{
+           String[] routeInstructions;
+           String from;
+           String to;
+           void calculateRoute();
+           String[] displayMapRoute();
+}
+
+class drivingFromSchoolToHome{
+            Student lynne = new Student();
+            Car cooper = new Car();
+            MapApp googleMap = new MapApp();
+            lynne.homeAddress = "225 Terry Ave";
+            lynne.schoolAddress = "401 Terry Ave";
+
+            lynne.navigateOnMapApp(googleMap);
+            googleMap.calculateRoute();
+            String[] instructions = googleMap.displayMapRoute();
+            lynne.followMapRouteToDrive(cooper, instructions);
+
+}
