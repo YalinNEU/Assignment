@@ -1,0 +1,189 @@
+/**
+ * Write a method to find N numbers which are power of three. e.g. n=4,
+ * return {1,3,9,27}
+ */
+public int[] findPowerOfThree(int n) {
+
+		int[] a = new int[n];
+		if(n<=0){
+			a[0]=3;
+			return null;
+		}
+		else{
+		a[0]=3;
+		System.out.println(a[0]);
+		for(int i=1;i<=n-1;i++){
+		a[i]=a[i-1]*3;
+		System.out.println(a[i]);
+	}
+		return a;
+    }
+    
+/**
+ * Given a integer 'n', return n%count, count is the number of digits of n
+ * For example, n = 100, return 1
+ */
+public int countDigits(int n) {
+    String s=Integer.toString(n);
+    char[] c = s.toCharArray();
+    int cou = s.length();
+    int result= n%cou;
+    System.out.println(result);
+    return result;
+}
+
+/**
+ * Given a integer 'n', if n is odd, print n odd numbers, if n is even,
+ * print n even numbers. For example, n = 3, print 1 3 5 n = 4, print 0 2 4
+ * 6
+ */
+public void printNumbers(int n) {
+     int[] result = new int[n];
+	   if(n<=0){
+    	   System.out.println("null");
+       }
+       else{
+       if(n%2==0){
+    	   for(int i=0;i<n;i++){
+    		   result[i]=2*i;
+    		   System.out.println(result[i]);
+    	   }
+       }
+        else  {
+    	    for(int k=0;k<n;k++){
+    		  result[k]=2*k+1;
+    		  System.out.println(result[k]);
+    	   }
+       }
+}
+
+/**
+ * Given numRows, generate the first numRows of Pascal's triangle. For
+ * example, given numRows = 5, return: [1] [1,1] [1,2,1] [1,3,3,1]
+ * [1,4,6,4,1]
+ */
+ public int[][] generatePascalsTriangle(int n) {
+ 		int[][] tri = new int[100][100];
+ 		for(int i = 0; i < n; i++)
+ 		{
+ 			tri[i][0] = 1;
+ 			tri[i][i] = 1;
+ 		}
+ 		for (int i= 2;i<n ;i++){
+ 			for(int j = 1; j < n; j++)
+ 			{
+ 				tri[i][j] = tri[i-1][j-1]+tri[i-1][j];
+ 			}
+ 		}
+ 		for(int i=0; i<n;i++){
+ 			for (int j=0; j<i+1;j++){
+ 				System.out.print(tri[i][j]);
+ 			}
+ 			System.out.println();
+ 		}
+ 		return tri;
+ 	}
+
+/**
+ * Write a function that takes a string as input and reverse only the vowels
+ * of a string. For example: Given s = "hello", return "holle".
+ */
+public String reverseVowels(String s) {
+  ArrayList<String> list = new ArrayList<String>();
+  list.add("a");
+  list.add("e");
+  list.add("i");
+  list.add("o");
+  list.add("u");
+  list.add("A");
+  list.add("E");
+  list.add("I");
+  list.add("O");
+  list.add("U");
+
+  char[] c = s.toCharArray();
+  int size = s.length();
+  int start = 0;
+  int end = size-1;
+  System.out.println(c[start]);
+  System.out.println(c[end]);
+
+  while(start<end){
+    if(!list.contains(String.valueOf(c[start]))){
+      start++;
+      continue;
+    }
+    if(!list.contains(String.valueOf(c[end]))){
+      end--;
+      continue;
+    }
+    System.out.println(c[start]);
+    System.out.println(c[end]);
+
+        char temp =c[start];
+        c[start] = c[end];
+        c[end]= temp;
+        start++;
+        end--;
+  }
+    System.out.println(c);
+    String str = String.valueOf(c);
+    return str;
+}
+
+/**
+ * Given a string s consists of upper/lower-case alphabets and empty space
+ * characters ' ', return the length of last word in the string. If the last
+ * word does not exist, return 0. Note: A word is defined as a character
+ * sequence consists of non-space characters only.
+ */
+public int lengthOfLastWord(String str) {
+     char[] c = str.toCharArray();
+     int size=str.length();
+     int count = 0;
+     if(size==0){
+        System.out.println("The word is not exist");
+        return 0;
+}
+     else{
+        for(int end=size-1;end>0;end--){
+     if(c[end]!=' '){
+        count++;
+        continue;
+    }
+    else{
+        break;
+    }
+  }
+        System.out.println(count);
+        return count;
+}
+}
+
+/**
+ * Reverse a string by words. Do not use 'split' function. e.g. "I like
+ * soccer" --> "soccer like I"
+ */
+public String reverseString2(String str) {
+    int length = charArray.length;
+        for(int i = 0, j = length - 1; i < j; i++, j--){
+            char temp = charArray[i];
+            charArray[i] = charArray[j];
+            charArray[j] = temp;
+        }
+    }
+    public static String reverseStringByWords(String inputString){
+
+        char[] charArray = inputString.toCharArray();
+        reverseStringByCharacter(charArray);
+
+        //Reverse the whole input string by character
+        for(int start = 0, end = 0; end < charArray.length; end++){
+            if(charArray[end] == ' ' || end == charArray.length){
+                char[] subCharArray = Arrays.copyOfRange(charArray, start, end);
+                reverseStringByCharacter(subCharArray);
+                start = end + 1;
+            }
+        }
+        return new String(charArray);
+}
