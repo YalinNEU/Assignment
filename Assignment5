@@ -1,0 +1,182 @@
+//class DessertItem
+public abstract class DessertItem {
+  String desertName;
+  public DessertItem(){
+	  }
+  public DessertItem(String name){
+	  desertName=name;
+  }
+  public String getName(){
+	  return desertName;
+  }
+  public abstract int getCost();
+}
+
+//class Candy
+public class Candy extends DessertItem{
+	float weight;
+	int candyPrice;
+	int candyCost;
+
+  public Candy(String name,float weight,int price)	{
+	  super(name);
+	  this.weight = weight;
+	  candyPrice=price;
+	  candyCost = Math.round(weight*candyPrice);
+  }
+  public int getCost(){
+	return candyCost;
+		}
+}
+
+//class Cookie
+public class Cookie extends DessertItem {
+	int number;
+	int cookiePrice;
+	int cookieCost;
+  public Cookie(String name,int number,int price)	{
+		 super(name);
+		 this.number=number;
+		 cookiePrice=price;
+		 cookieCost = Math.round(number/12*cookiePrice);
+ }
+  public int getCost(){
+	return cookieCost;
+ }
+}
+
+//class Icecream
+public class Icecream extends DessertItem {
+	int icecreamPrice;
+  public Icecream(String name,int price)	{
+	super(name);
+	icecreamPrice=price;
+ }
+  public int getCost(){
+	return icecreamPrice;
+ }
+}
+
+//class Sundae
+public class Sundae extends Icecream {
+	String toppingName;
+	int toppingPrice;
+  public Sundae(String icecreamName,int icecreamPrice,String toppingName,int toppingPrice)	{
+	super(icecreamName,icecreamPrice);
+	 this.toppingName=toppingName;
+	 this.toppingPrice=toppingPrice;
+ }
+  public int getCost(){
+	return super.getCost() + toppingPrice;
+ }
+}
+
+//class DessertShoppe
+public class DessertShoppe {
+    private float taxRate;
+    private String  storeName ;
+    private int maxNumSizeOfDessertItemName;
+	private int widthOfCost;
+
+    public DessertShoppe(){
+    taxRate=0.098f;
+    storeName="M & M Dessert Shoppe";
+    maxNumSizeOfDessertItemName=30;
+    widthOfCost=15;
+}
+	public String cents2dollarsAndCents(int a){
+	if (a<0) {
+		 return null;
+	}
+	else{
+		int x, y;
+		x = a/100;
+        y = a%100;
+	String result = Integer.toString(x);
+        x = y/10;
+        y = y%10;
+    result.concat(".");
+    result.concat(Integer.toString(x));
+    result.concat(Integer.toString(y));
+
+		return result;
+	    }
+}
+	public float getTaxRate() {
+		return taxRate;
+	}
+	public void setTaxRate(float taxRate) {
+		this.taxRate = taxRate;
+	}
+	public String getStoreName() {
+		return storeName;
+	}
+	public void setStoreName(String storeName) {
+		this.storeName = storeName;
+	}
+	public int getMaxNumSizeOfDessertItemName() {
+		return maxNumSizeOfDessertItemName;
+	}
+	public void setMaxNumSizeOfDessertItemName(int maxNumSizeOfDessertItemName) {
+		this.maxNumSizeOfDessertItemName = maxNumSizeOfDessertItemName;
+	}
+	public int getWidthOfCost() {
+		return widthOfCost;
+	}
+	public void setWidthOfCost(int widthOfCost) {
+		this.widthOfCost = widthOfCost;
+	}
+}
+
+//class Checkout
+import java.util.*;
+public class Checkout {
+	private DessertShoppe shop;
+
+private Vector <DessertItem> items;
+
+public Checkout(){
+	items=new Vector<DessertItem>();
+	shop = new DessertShoppe();
+}
+public int numberOfItem(){
+    return items.size();
+}
+public void enterItem(DessertItem item) {
+	items.addElement(item);
+}
+public void clear(){
+	items.clear();
+}
+public int totalCost(){
+	int total=0;
+	for(DessertItem item:items){
+		total+=item.getCost();
+	}
+    return total;
+}
+
+public String toString(){
+	StringBuilder sb = new StringBuilder();
+	sb.append(shop.getStoreName() + "\n");
+    sb.append("--------------------" + "\n");
+
+    for (DessertItem item: items) {
+    	 String itemName = item.getName();
+    	 String cost = shop.cents2dollarsAndCents(item.getCost());
+    	 String spacePadding = String.format("%"+(shop.getMaxNumSizeOfDessertItemName()-itemName.length())+"s","");
+        if (item instanceof Candy) {
+            sb.append(((Candy) item).weight+" @ "+((Candy) item).candyPrice+itemName+spacePadding+cost+"\n");
+        } else if (item instanceof Cookie) {
+            sb.append(sb.append(((Cookie) item).number+" @ "+((Cookie) item).cookiePrice+itemName+spacePadding+cost+"\n");
+        } else{
+        	sb.append(itemName + spacePadding + cost + "\n");
+        }
+    }
+    sb.append("\n");
+    int totalTax =(int)(totalCost()*shop.getTaxRate());
+    sb.append("Tax        " + totalTax + "\n");
+    sb.append("Total Cost        " + shop.cents2dollarsAndCents(totalCost()+totalTax) + "\n");
+    return new String(sb);
+}
+}
