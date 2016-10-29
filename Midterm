@@ -1,41 +1,44 @@
 1)	Say you have Given a string which consists of lowercase or uppercase letters, find the length of the longest palindromes that can be built with those letters.
 This is case sensitive, for example "Aa" is not considered a palindrome here.
-	
+       
+        import java.util.*;	
 	public int longestPalindrome(String s){
 		int count = 0;
-    HashSet<Character> elementPool = new HashSet<Character>();
+        HashSet<Character> elementPool = new HashSet<Character>();
 		for(int i=0; i<s.length(); i++){						
 		if(elementPool.contains(s.charAt(i))){	
 		   elementPool.remove(s.charAt(i));
-			 count++;				    			    
+	           count++;				    			    
 	  }else{
-			 elementPool.add(s.charAt(i));
+	           elementPool.add(s.charAt(i));
 	  }		
 	   }
 		if(!elementPool.isEmpty())	return count*2+1;					
-			 return count*2;
+		    return count*2;
    }				
 
 
 2)	an array for which the ith element is the price of a given stock on day i. Design an algorithm to find the maximum profit. You may complete as many transactions as you like (ie, buy one and sell one share of the stock multiple times). However, you may not engage in multiple transactions at the same time (ie, you must sell the stock before you buy again).
-    public int maxProfit(int[] prices) {
-		   int totalRevenue = 0;
-		   if (prices.length<2 || prices==null){
+    
+        public int maxProfit(int[] prices) {
+		  int totalRevenue = 0;
+	       if (prices.length<2 || prices==null){
 			     return 0;
 		   }else{		
 		   for(int i=0; i<prices.length-1; i++){
 		   int buy = prices[i];
 		   int sell = prices[i+1];
-       if(buy < sell)
-		      totalRevenue += sell - buy; 
+               if(buy < sell)
+		    totalRevenue += sell - buy; 
 		  }		
-		return totalRevenue;		
+		  return totalRevenue;		
 	}
 }
 
 3)	Given a column title as appear in an Excel sheet, return its corresponding column number.
 For example: A -> 1, B -> 2, … Z -> 26, AA -> 27, AB -> 28
-   public int titleToNumber(String title) {
+          
+	  public int titleToNumber(String title) {
     		if(title == null || title.length() == 0){
 			    return 0;
     }
@@ -56,8 +59,9 @@ Input: nums={2, 7, 11, 15}, target=10, there is no pair so return 0.
 Input: nums={1,5,2,4,3,6}, target=7, there is are three pairs {1,6}, {2,5}, {3,4} so return 3.
 Note: {1,2} and {2,1} are regarded as the same pair.
 More-Bonus: If you can do it in O(N) time, you will get extra 5 points.
-	
-  public int twoSum(int[] nums, int target) {
+     
+      import java.util.*;	
+      public int twoSum(int[] nums, int target) {
 		int count = 0;
 		HashSet<Integer> numPool = new HashSet<Integer>();
 		for(int num:nums){
