@@ -72,3 +72,4 @@ More-Bonus: If you can do it in O(N) time, you will get extra 5 points.
 		}
 		return count;
 	}
+	// try with int[] nums = {4} and target = 8, the return should be 0 but your answer is 1; -2
