@@ -1,0 +1,255 @@
+// Class Pet
+public class Pet {
+
+  private String Name;
+  private String ownerName;
+  private String color;
+  protected int Sex;
+  public final int MALE = 1;
+  public final int FEMALE = 2;
+  public final int SPAYED = 3;
+  public final int NEUTERED = 4;
+
+public Pet(String Name, String ownerName, String color){
+  this.Name = Name;
+  this.ownerName = ownerName;
+  this.color = color;
+}
+
+public String getPetName(){
+  return Name;
+}
+
+public String getOwnerName(){
+  return ownerName;
+}    
+
+public String getColor(){
+  return color;
+}
+
+public void setSex(int sexid){
+  Sex = sexid;
+}
+
+public String getSex(){	
+	String sexString;
+		
+	switch(Sex){
+		case MALE:
+				sexString = "MALE";
+				break;
+		case FEMALE:
+				sexString = "FEMALE";
+				break;
+		case SPAYED:
+				sexString = "SPAYED";
+				break;
+		case NEUTERED:
+				sexString = "NEUTERED";
+				break;
+		default:
+				sexString = "";
+				break;
+		}
+		return sexString;
+	}
+
+public String toString(){
+
+  return this.Name + " owned by " + this.ownerName + "\n" 
+             + "Color:" + this.color + "\n"
+             + "Sex:" + getSex();
+}
+
+public static void main(String[] args){
+  Pet newPet = new Pet("Spot","Mary","Black and White");
+  newPet.setSex(1);
+  System.out.println(newPet);
+}
+}
+
+
+//Interface Boardable
+public interface Boardable {
+  public void setBoardStart(int month,int day, int year);
+  public void setBoardEnd(int month,int day, int year);
+	boolean boarding(int month,int day, int year);
+}
+
+
+//Class Cat
+public class Cat extends Pet implements Boardable {
+   private String hairLength;
+   private int startMonth;
+   private int startDay;
+   private int startYear;
+   private int endMonth;
+   private int endDay;
+   private int endYear;;
+     
+public Cat(String name, String ownerName, String color, String hairLength){
+   super(name,ownerName,color);
+   this.hairLength = hairLength;
+}
+
+public String getHairLength(){
+   return hairLength;
+}
+
+public String toString(){
+   return "CAT:" + "\n" 
+               + super.getPetName() + " owned by " + super.getOwnerName() + "\n"
+               + "Color: " + super.getColor() + "\n"
+               + "Sex: " + super.getSex() + "/n"
+               + "Hair: " + this.getHairLength();
+}
+    
+public void setBoardStart (int month, int day, int year){        
+   startMonth = month;
+   startDay = day;
+   startYear = year;
+}
+      
+public void setBoardEnd(int month, int day, int year){
+   endMonth = month;
+   endDay = day;
+   endYear = year;     
+}	 
+
+public boolean boarding(int month, int day, int year){
+   if (month < 1 || month > 12 || day < 1 || day > 31 || year > 9999) {
+            System.out.println("Error entering");
+     }else if(year > endYear || year < startYear) {
+           	return false;
+     }else if(year == startYear){
+         if(month < startMonth){
+           		return false;
+         }else if (month == startMonth){
+                if(day < startDay){
+           			return false;
+                }
+     }else if (year == endYear){
+         if(month > endMonth){
+           		return false;
+     }else if(month == endMonth){
+          if(day > endDay){
+           		return false;
+           }
+         }
+       }
+     }  	    
+           return true;
+}
+}
+
+
+//Class Dog
+public class Dog extends Pet implements Boardable {
+    private String size;
+    private int startMonth;
+    private int startDay;
+    private int startYear;
+    private int endMonth;
+    private int endDay;
+    private int endYear;
+    
+public Dog(String name, String ownerName, String color, String size){
+ 	   super(name, ownerName, color);
+ 	   this.size = size;
+    }
+    
+public String getSize(){
+ 	   return size;
+    }
+   
+public String toString(){
+    	return "DOG:" + "\n" 
+                + super.getPetName() + " owned by " + super.getOwnerName() + "\n"
+                + "Color: " + super.getColor() + "\n"
+                + "Sex: " + super.getSex() + "/n"
+                + "Size: " + size + "\n";
+    }
+	   
+public void setBoardStart(int month, int day, int year){
+ 	   startMonth = month;
+ 	   startDay = day;
+ 	   startYear = year;
+    }
+   
+    
+public void setBoardEnd(int month, int day, int year){
+ 	  endMonth = month;
+ 	  endDay = day;
+ 	  endYear = year;
+   }
+ 
+public boolean boarding(int month, int day, int year){
+ 	  if (month < 1 || month > 12 || day < 1 || day > 31 || year > 9999) {
+           System.out.println("Error entering");
+         }else if(year > endYear || year < startYear) {
+         	return false;
+         }else if(year == startYear){
+         	if(month < startMonth){
+         		return false;
+         	}else if (month == startMonth){
+         		if(day < startDay){
+         			return false;
+         		}
+         	}else if (year == endYear){
+         		if(month > endMonth){
+         			return false;
+         		}else if(month == endMonth){
+         			if(day > endDay){
+         				return false;
+         			}
+         		}
+         	}
+         }
+ 	    
+    return true;
+    }
+}
+
+
+//Class AnimalHospital
+import java.util.*;
+public class AnimalHospital {
+private List<Pet> animalList;
+
+public AnimalHospital(String inputFile) {
+        animalList = new ArrayList<>();
+  }
+
+public void printPetInfoByName(String name) {
+        for (Pet pet: animalList) {
+        if (pet.getPetName().trim().equals(name.trim())) {
+                System.out.println(pet.toString());
+            }
+        }
+    }
+
+public void printPetInforByOwner(String name) {
+        for (Pet pet: animalList) {
+        if (pet.getOwnerName().trim().equals(name.trim())) {
+                System.out.println(pet.toString());
+            }
+        }
+    }
+
+public void printPetBoarding(int month, int day, int year) {        
+        for (Pet pet: animalList) {
+        if (pet.getClass().getName().toLowerCase().equals("cat")) {
+           if (((Cat)pet).boarding(month, day, year)) {
+                System.out.println(((Cat)pet).toString());
+                    }
+
+     } else if (pet.getClass().getName().toLowerCase().equals("dog")) {
+         if (((Dog) pet).boarding(month, day, year)) {
+                System.out.println(((Dog)pet).toString());
+                    }
+                }
+            }        
+        }
+    }
+
